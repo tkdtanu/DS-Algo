@@ -29,7 +29,7 @@ class ArraySel{
 		System.out.println("");		//for new line
 	}//end of display()
 //---------------------------------------------------------
-	//method for bubbleSort
+	//method for selectionSort()
 	public void selectionSort(){
 		for(int i=0;i<noOfElements-1;i++){
 			
@@ -39,7 +39,7 @@ class ArraySel{
 				}
 			}
 		}
-	}//end of bubbleSort()
+	}//end of selectioSort()
 //---------------------------------------------------------
 	//method for swapping two element in array
 	public void swap(int one,int two){
@@ -48,7 +48,7 @@ class ArraySel{
 		elements[two]=temp;
 	}//end of swap()
 	
-}//end of class ArrayBub
+}//end of class Arraysel
 //-------------------------------------------------------------------------------
 
 public class SelectionSort {
