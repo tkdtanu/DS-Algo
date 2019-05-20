@@ -1,9 +1,10 @@
-package com.graph;
+package com.algo.graph;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
 
-public class GraphDFS {
+public class GraphBFS {
     public static void main(String[] args) {
 
         Graph graph = createGraph();
@@ -14,12 +15,12 @@ public class GraphDFS {
         System.out.print("Start-->");
         if (graph == null || graph.getVertex(sourceVertex) == null)
             throw new RuntimeException("Empty Graph");
-        Stack<Integer> stack = new Stack<>();
-        stack.push(sourceVertex);
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(sourceVertex);
 
         //untill stack is emplty iterate  it
-        while (!stack.empty()) {
-            Integer vertex = stack.pop();
+        while (!queue.isEmpty()) {
+            Integer vertex = queue.poll();
             Vertex vertexObject = graph.getVertex(vertex);
             if (!vertexObject.isVisited()) {
 
@@ -29,14 +30,13 @@ public class GraphDFS {
                 List<Vertex<Integer>> vertexList = graph.getAdjVertices(vertex);
 
                 for (Vertex<Integer> v : vertexList) {
-                    stack.push(v.getData());
+                    queue.add(v.getData());
                 }
             }
 
         }
         System.out.print("End");
     }
-
 
     private static Graph createGraph() {
         Graph graph = new Graph(9, false);

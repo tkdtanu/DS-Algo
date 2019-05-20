@@ -1,44 +1,48 @@
-package com.graph;
+package com.algo.graph;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Stack;
 
-public class GraphBFS {
+public class GraphDFS {
     public static void main(String[] args) {
 
         Graph graph = createGraph();
         doDFSOnGrap(graph, 0);
     }
 
-    private static void doDFSOnGrap(Graph graph, int sourceVertex) {
+    protected static int doDFSOnGrap(Graph graph, int sourceVertex) {
         System.out.print("Start-->");
         if (graph == null || graph.getVertex(sourceVertex) == null)
             throw new RuntimeException("Empty Graph");
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(sourceVertex);
+        int noOfVisitedVertices = 0;
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(sourceVertex);
 
         //untill stack is emplty iterate  it
-        while (!queue.isEmpty()) {
-            Integer vertex = queue.poll();
+        while (!stack.empty()) {
+            Integer vertex = stack.pop();
             Vertex vertexObject = graph.getVertex(vertex);
             if (!vertexObject.isVisited()) {
 
                 System.out.print(vertex + "-->");
                 vertexObject.setVisited(true);
+                noOfVisitedVertices++;
 
                 List<Vertex<Integer>> vertexList = graph.getAdjVertices(vertex);
 
                 for (Vertex<Integer> v : vertexList) {
-                    queue.add(v.getData());
+                    stack.push(v.getData());
                 }
             }
 
         }
-        System.out.print("End");
+        System.out.println("End");
+        return noOfVisitedVertices;
     }
 
-    private static Graph createGraph() {
+
+    protected static Graph createGraph() {
         Graph graph = new Graph(9, false);
         graph.addEdge(0, 1);
         graph.addEdge(0, 7);
@@ -56,5 +60,18 @@ public class GraphBFS {
         graph.addEdge(3, 4);
         return graph;
 
+    }
+
+    protected static Graph createDirectedGraph() {
+        Graph graph = new Graph(7, true);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(4, 1);
+        graph.addEdge(5, 2);
+        graph.addEdge(5, 6);
+        graph.addEdge(6, 4);
+        graph.addEdge(6, 0);
+        return  graph;
     }
 }

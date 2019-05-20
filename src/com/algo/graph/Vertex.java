@@ -1,4 +1,4 @@
-package com.graph;
+package com.algo.graph;
 
 import java.util.Objects;
 
