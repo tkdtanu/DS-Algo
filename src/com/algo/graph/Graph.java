@@ -1,16 +1,19 @@
 package com.algo.graph;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Graph {
     private int noOfVertices;
     private Map<Integer, List<Vertex<Integer>>> adjVertices = new HashMap<>();
-    private final Map<Integer, Vertex> verticesMap = new HashMap<>();
+    private final Map<Integer, Vertex<Integer>> verticesMap = new HashMap<>();
     private boolean isDirected;
 
     public Graph(int noOfVertices, boolean isDirected) {
@@ -29,6 +32,10 @@ public class Graph {
 
     public List<Vertex<Integer>> getAdjVertices(int vertex) {
         return adjVertices.get(vertex);
+    }
+
+    public List<Vertex<Integer>> getAdjVertices(Vertex<Integer> vertex) {
+        return adjVertices.get(vertex.getData());
     }
 
     public void addEdge(int source, int destination) {
@@ -76,13 +83,25 @@ public class Graph {
         return this.verticesMap.keySet();
     }
 
+    public List<Vertex<Integer>> getAllVerticesObj() {
+        return this.verticesMap
+                .entrySet()
+                .stream()
+                .map(entry -> entry.getValue())
+                .collect(Collectors.toList());
+    }
+
     public int getNoOfVertices() {
         return noOfVertices;
     }
 
-    public void resetAllVerticesToUnVisited(){
+    public void resetAllVerticesToUnVisited() {
         this.verticesMap.values().forEach(vertex -> {
             vertex.setVisited(false);
         });
+    }
+
+    public boolean isAllVerticesVisited() {
+        return this.verticesMap.values().stream().allMatch(vertex -> vertex.isVisited());
     }
 }
