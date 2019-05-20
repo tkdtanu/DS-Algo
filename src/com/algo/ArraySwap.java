@@ -17,7 +17,7 @@ public class ArraySwap {
         int[] array6 = new int[]{1, 1, 1, 0, 0, 0}; //0 swap
         int[] array7 = new int[]{0, 1}; //0 swap
         List<int[]> arrayList = Arrays.asList(array1, array2, array3, array4, array5, array6, array7);
-        arrayList.stream().forEach(a -> this.arraySwap(a));
+        arrayList.stream().forEach(a -> arraySwap(a));
     }
 
     public static void arraySwap(int[] array) {
